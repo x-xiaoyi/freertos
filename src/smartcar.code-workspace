@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "D:/smartcar/smartcar"
+		},
+		{
+			"name": "freeRTOS",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

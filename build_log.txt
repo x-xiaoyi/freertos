@@ -1,0 +1,54 @@
+Processing bluepill_f103c8 (platform: ststm32; board: bluepill_f103c8; framework: stm32cube; extra_scripts: pre:add_freertos.py; build_flags: -Os, -DUSE_FULL_LL_DRIVER; debug_tool: stlink; upload_protocol: stlink; monitor_speed: 115200)
+--------------------------------------------------------------------------------
+CONFIGURATION: https://docs.platformio.org/page/boards/ststm32/bluepill_f103c8.html
+PLATFORM: ST STM32 (19.5.0) > BluePill F103C8
+HARDWARE: STM32F103C8T6 72MHz, 20KB RAM, 64KB Flash
+DEBUG: Current (stlink) External (blackmagic, cmsis-dap, jlink, stlink)
+PACKAGES: 
+ - framework-stm32cubef1 @ 1.8.6 
+ - tool-ldscripts-ststm32 @ 0.2.0 
+ - toolchain-gccarmnoneeabi @ 1.70201.0 (7.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 28 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+MethodWrapper(["checkprogsize"], [".pio\build\bluepill_f103c8\firmware.elf"])
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [========  ]  77.5% (used 15872 bytes from 20480 bytes)
+Flash: [=         ]  13.2% (used 8648 bytes from 65536 bytes)
+.pio\build\bluepill_f103c8\firmware.elf  :
+
+section              size        addr
+
+.isr_vector           268   134217728
+
+.text                8544   134218000
+
+.rodata                88   134226544
+
+.ARM.extab              0   134226632
+
+.ARM                    0   134226632
+
+.preinit_array          0   134226632
+
+.init_array             4   134226632
+
+.fini_array             4   134226636
+
+.data                  16   536870912
+
+.bss                15856   536870928
+
+._user_heap_stack    1536   536886784
+
+.ARM.attributes        41           0
+
+.comment              126           0
+
+.debug_frame          116           0
+
+Total               26599
+========================= [SUCCESS] Took 1.27 seconds =========================

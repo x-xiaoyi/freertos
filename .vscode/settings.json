@@ -1,0 +1,87 @@
+{
+    "workbench.colorTheme": "Default Light Modern",
+    "editor.semanticHighlighting.enabled": false,
+    "C_Cpp.enhancedColorization": "Disabled",
+    "workbench.colorCustomizations": {
+        "editor.background": "#f0e6c8",
+        "sideBar.background": "#e8ddc0",
+        "activityBar.background": "#d8ccaa",
+        "statusBar.background": "#c8bc96",
+        "titleBar.activeBackground": "#d8ccaa",
+        "terminal.background": "#f0e6c8",
+        "panel.background": "#f0e6c8",
+        "editorGroupHeader.tabsBackground": "#d8ccaa",
+        "tab.activeBackground": "#f0e6c8",
+        "tab.inactiveBackground": "#e6dbbe",
+        "editor.foreground": "#cc3366",
+        "editorLineNumber.foreground": "#8a7a50",
+        "editorCursor.foreground": "#dd8833",
+        "editor.selectionBackground": "#f0d8b8"
+    },
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "variable.other.member.c",
+                    "variable.other.property.c"
+                ],
+                "settings": { "foreground": "#8833cc" }
+            },
+            {
+                "scope": [
+                    "variable.other.c",
+                    "variable.other.readwrite.c",
+                    "variable.other.local.c"
+                ],
+                "settings": { "foreground": "#bb2288" }
+            },
+            {
+                "scope": [
+                    "constant.other.c",
+                    "constant.other.macro.c",
+                    "constant.c",
+                    "entity.name.function.preprocessor.c",
+                    "meta.preprocessor.macro.c"
+                ],
+                "settings": { "foreground": "#ff3399" }
+            },
+            {
+                "scope": "entity.name.function.c",
+                "settings": { "foreground": "#dd7722" }
+            },
+            {
+                "scope": [
+                    "keyword.type.c",
+                    "storage.type.c"
+                ],
+                "settings": { "foreground": "#ffcc00" }
+            },
+            {
+                "scope": [
+                    "keyword.control.c",
+                    "keyword.other.c",
+                    "storage.modifier.c"
+                ],
+                "settings": { "foreground": "#cc3366" }
+            },
+            {
+                "scope": [
+                    "string.quoted.double.c",
+                    "string.quoted.single.c"
+                ],
+                "settings": { "foreground": "#33aa55" }
+            },
+            {
+                "scope": [
+                    "comment.line.double-slash.c",
+                    "comment.block.c"
+                ],
+                "settings": { "foreground": "#888866" }
+            },
+            {
+                "scope": "constant.numeric.c",
+                "settings": { "foreground": "#dd5500" }
+            }
+        ]
+    }
+}
