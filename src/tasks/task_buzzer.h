@@ -14,6 +14,6 @@
 #include "cmsis_os.h"
 
 /* 创建并注册蜂鸣器任务（内部完成 osThreadDef + osThreadCreate） */
-void Task_Buzzer_Create(osMessageQId queue);
+void Task_Buzzer_Create(osSemaphoreId sem);
 
 #endif /* TASK_BUZZER_H */

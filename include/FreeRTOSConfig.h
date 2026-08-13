@@ -91,7 +91,9 @@ header file. */
 #define vPortSVCHandler    SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 
-/* IMPORTANT: FreeRTOS 使用 SysTick 作为内部时基，请确保系统/外设使用不同的时基（如 TIM）。*/
-#define xPortSysTickHandler SysTick_Handler
+/* SysTick 中断由我们自己实现（见 src/bsp/bsp_tick.c）：
+ * 同时喂给 HAL 时基（HAL_IncTick）和 FreeRTOS 时基（xPortSysTickHandler）。
+ * 不要把 xPortSysTickHandler 重命名为 SysTick_Handler，
+ * 否则会顶掉 HAL_Delay 依赖的 HAL 时基，导致 HAL_Delay 永远卡住。 */
 
 #endif /* FREERTOS_CONFIG_H */

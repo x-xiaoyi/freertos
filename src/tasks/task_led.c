@@ -8,24 +8,18 @@
  */
 #include "task_led.h"
 #include "stm32f1xx_hal.h"
-#include "task_buzzer.h"
-
 
 /* ---- 任务函数（内部使用） ---- */
 static void LedTask_Handler(void const *argument)
 {
-    osMessageQId queueId = (osMessageQId)argument;
+    osSemaphoreId semId = (osSemaphoreId)argument;
     static TickType_t lastwaketime;
     lastwaketime = xTaskGetTickCount();
-    int i=0;
     for (;;)
     {
-        i++;
-        if(i==4)i = 0;
-        uint32_t message = (CMD_Buzzer<<16) | i;
-        HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-        osMessagePut(queueId,message,0);   /* BluePill LED 低电平点亮 */
-        vTaskDelayUntil(&lastwaketime,500);                              /* 任务级延时，让出 CPU */
+        osSemaphoreRelease(semId);
+        HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);   /* BluePill LED 低电平点亮 */
+        vTaskDelayUntil(&lastwaketime,500);      /* 任务级延时，让出 CPU */
     }
 }
 
@@ -33,7 +27,7 @@ static void LedTask_Handler(void const *argument)
 osThreadDef(LedTask_Handler, LedTask_Handler, osPriorityNormal, 1, 128);
 
 /* ---- 对外接口：创建任务 ---- */
-void Task_LED_Create(osMessageQId queueId)
+void Task_LED_Create(osSemaphoreId semId)
 {
-    osThreadCreate(osThread(LedTask_Handler), queueId);
+    osThreadCreate(osThread(LedTask_Handler), semId);
 }

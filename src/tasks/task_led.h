@@ -11,6 +11,6 @@
 #include "cmsis_os.h"
 
 /* 创建并注册 LED 任务（内部完成 osThreadDef + osThreadCreate） */
-void Task_LED_Create(osMessageQId queueId);
+void Task_LED_Create(osSemaphoreId semId);
 
 #endif /* TASK_LED_H */

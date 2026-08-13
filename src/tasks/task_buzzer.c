@@ -11,33 +11,20 @@
 #include "stm32f1xx_hal.h"
 static void Buzzer_Handle(void const *argument)
 {
-    osMessageQId queue = (osMessageQId)argument;
-    osEvent evn;
+    osSemaphoreId sem = (osSemaphoreId)argument;
     for(;;)
     {
-        evn = osMessageGet(queue, osWaitForever);
-        if(evn.status == osEventMessage)
-        {
-            uint32_t message = evn.value.v;
-            uint16_t cmd = message>>16;
-            uint16_t param = message&0xFFFF;
-            if(cmd == CMD_Buzzer)
-            {
-                for(int n=0;n<param;n++)
-                {
-                    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);
-                    osDelay(100);
-                    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
-                    osDelay(100);
-                }
-            }
-        }
+        osSemaphoreWait(sem, osWaitForever);
+        HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);
+        osDelay(100);   /* 短响 100ms（1000 长响版是坍缩实验专用，实验时再改回去） */
+        HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
+        osDelay(100);
     }
 }
 osThreadDef(Buzzer_Handle,Buzzer_Handle,osPriorityNormal,1,128);
 
 /* ---- 对外接口：创建任务 ---- */
-void Task_Buzzer_Create(osMessageQId queue)
+void Task_Buzzer_Create(osSemaphoreId sem)
 {
-    osThreadCreate(osThread(Buzzer_Handle), queue);
+    osThreadCreate(osThread(Buzzer_Handle), sem);
 }
