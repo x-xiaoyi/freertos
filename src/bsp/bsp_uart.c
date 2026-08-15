@@ -16,7 +16,8 @@ UART_HandleTypeDef huart1;
 static uint8_t rx_byte;                     /* HAL 中断接收的目标字节 */
 static volatile uint8_t  rx_buf[RX_BUF_SIZE];
 static volatile uint16_t rx_head = 0;       /* 只有中断写 */
-static volatile uint16_t rx_tail = 0;       /* 只有任务读 */
+static volatile uint16_t rx_tail = 0; 
+static volatile uint16_t rx_count = 0;
 
 static void BSP_UART_StartRxIT(void)
 {
@@ -101,6 +102,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     uint16_t next = (uint16_t)((rx_head + 1u) & (RX_BUF_SIZE - 1u));
     if (next != rx_tail)          /* 缓冲区没满才存，满了丢这一个字节 */
     {
+        rx_count++;
         rx_buf[rx_head] = rx_byte;
         rx_head = next;
     }
@@ -128,4 +130,8 @@ uint8_t BSP_UART_ReadByte(uint8_t *out)
     *out = rx_buf[rx_tail];
     rx_tail = (uint16_t)((rx_tail + 1u) & (RX_BUF_SIZE - 1u));
     return 1;
+}
+uint16_t BSP_UART_GetRxCount(void)
+{
+    return rx_count;
 }

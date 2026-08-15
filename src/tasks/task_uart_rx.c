@@ -15,6 +15,7 @@ static void UartRx_Handler(void const *argument)
 {
     osMutexId mutex = (osMutexId)argument;
     uint8_t ch;
+    uint16_t round = 0;
 
     for (;;)
     {
@@ -25,14 +26,20 @@ static void UartRx_Handler(void const *argument)
             {
                 osMutexWait(mutex, osWaitForever);
             }
-
-            printf("[RX] 0x%02X '%c'\r\n",
-                   ch, (ch >= 0x20 && ch <= 0x7E) ? (char)ch : '.');
-
+            printf("[RX] 0X%02X '%c'\r\n", ch, ch);
             if (mutex != NULL)
             {
+                
                 osMutexRelease(mutex);
             }
+        }
+        round ++;
+        if(round >= 200)
+        {
+            round = 0;
+            if(mutex != NULL)osMutexWait(mutex,osWaitForever);
+            printf("[stats]total receive: %u bytes\r\n",BSP_UART_GetRxCount());
+            if(mutex != NULL)osMutexRelease(mutex);
         }
         osDelay(5);
     }

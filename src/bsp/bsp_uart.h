@@ -15,5 +15,6 @@ void BSP_UART_Init(void);
 
 /* 非阻塞读取：有数据返回 1 并写入 *out，无数据返回 0 */
 uint8_t BSP_UART_ReadByte(uint8_t *out);
+uint16_t BSP_UART_GetRxCount(void);
 
 #endif /* BSP_UART_H */
