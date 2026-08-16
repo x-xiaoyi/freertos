@@ -12,6 +12,7 @@
 #include "bsp_clock.h"
 #include "bsp_gpio.h"
 #include "bsp_uart.h"
+#include "bsp_params.h"
 
 /* ---- 任务模块 ---- */
 #include "task_led.h"
@@ -34,24 +35,16 @@ int main(void)
     /* 2) 创建任务 */
 
     osSemaphoreDef(semaphore);
-    osSemaphoreId sem = osSemaphoreCreate(osSemaphore(semaphore),1);
+    osMutexDef(printmutex);
+    task_params_t params;
+    params.semId = osSemaphoreCreate(osSemaphore(semaphore),1);
+    params.print_Mutex = osMutexCreate(osMutex(printmutex));
 
-    Task_LED_Create(sem);
-    Task_Buzzer_Create(sem);
 
-    /* 互斥锁：保护串口这个共享资源（和信号量一样，资源在 main 创建，
-     * 句柄经 argument 递进任务）。
-     * USE_MUTEX=0 时任务内不碰锁，传 NULL 即可复现无锁混乱。 */
-#if USE_MUTEX
-    osMutexDef(printMutex);
-    osMutexId print_mutex = osMutexCreate(osMutex(printMutex));
-#else
-    osMutexId print_mutex = NULL;
-#endif
-
-    Task_PrintA_Create(print_mutex);
-    Task_PrintB_Create(print_mutex);
-    Task_UART_RX_Create(print_mutex);
+    Task_LED_Create(params.semId);
+    Task_Buzzer_Create(params.semId);
+    Task_Print_Create(params.print_Mutex);
+    Task_UART_RX_Create(&params);
 
     /* 3) 启动 FreeRTOS 调度器（不再返回） */
     osKernelStart();
