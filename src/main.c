@@ -39,9 +39,6 @@ int main(void)
     task_params_t params;
     params.semId = osSemaphoreCreate(osSemaphore(semaphore),1);
     params.print_Mutex = osMutexCreate(osMutex(printmutex));
-
-
-    Task_LED_Create(params.semId);
     Task_Buzzer_Create(params.semId);
     Task_Print_Create(params.print_Mutex);
     Task_UART_RX_Create(&params);
