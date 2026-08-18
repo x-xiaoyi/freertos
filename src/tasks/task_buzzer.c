@@ -15,9 +15,9 @@ static void Buzzer_Handle(void const *argument)
     for(;;)
     {
         osSemaphoreWait(sem, osWaitForever);
-        HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);
+        HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET); /* 蜂鸣器 active-LOW：LOW = 响 */
         osDelay(100);   /* 短响 100ms（1000 长响版是坍缩实验专用，实验时再改回去） */
-        HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);   /* 最后恢复静音态，阻塞前不得残留 LOW */
         osDelay(100);
     }
 }

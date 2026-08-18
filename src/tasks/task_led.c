@@ -12,12 +12,11 @@
 /* ---- 任务函数（内部使用） ---- */
 static void LedTask_Handler(void const *argument)
 {
-    osSemaphoreId semId = (osSemaphoreId)argument;
+    (void)argument;   /* LED 任务不需要外部参数 */
     static TickType_t lastwaketime;
     lastwaketime = xTaskGetTickCount();
     for (;;)
     {
-        osSemaphoreRelease(semId);
         HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);   /* BluePill LED 低电平点亮 */
         vTaskDelayUntil(&lastwaketime,500);      /* 任务级延时，让出 CPU */
     }
@@ -27,7 +26,7 @@ static void LedTask_Handler(void const *argument)
 osThreadDef(LedTask_Handler, LedTask_Handler, osPriorityNormal, 1, 128);
 
 /* ---- 对外接口：创建任务 ---- */
-void Task_LED_Create(osSemaphoreId semId)
+void Task_LED_Create(void)
 {
-    osThreadCreate(osThread(LedTask_Handler), semId);
+    osThreadCreate(osThread(LedTask_Handler), NULL);
 }

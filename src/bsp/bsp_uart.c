@@ -43,9 +43,11 @@ void BSP_UART_Init(void)
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    /* RX：PA10 → USART1_RX（输入 + 上拉，空闲时保持高电平，防止悬空误收） */
+    /* RX：PA10 → USART1_RX（输入 + 上拉，空闲时保持高电平，防止悬空误收）
+     * 注意：STM32F1 系列没有 GPIO_MODE_AF_INPUT！RX 引脚只需 GPIO_MODE_INPUT，
+     *       USART1 复用功能由 AFIO 外设自动接管，不需要我们手动指定 AF 模式。 */
     GPIO_InitStruct.Pin   = GPIO_PIN_10;
-    GPIO_InitStruct.Mode  = GPIO_MODE_AF_INPUT;
+    GPIO_InitStruct.Mode  = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull  = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);

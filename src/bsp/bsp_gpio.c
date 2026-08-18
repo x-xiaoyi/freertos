@@ -24,6 +24,6 @@ void BSP_Buzzer_GPIO_Init(void)
     Buzzer_Init.Mode = GPIO_MODE_OUTPUT_PP;
     Buzzer_Init.Pull = GPIO_NOPULL;
     Buzzer_Init.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(GPIOA,&Buzzer_Init);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+    HAL_GPIO_Init(GPIOA, &Buzzer_Init);
 }

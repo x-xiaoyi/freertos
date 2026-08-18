@@ -6,7 +6,7 @@
 
 #include "stm32f1xx_hal.h"
 
-/* 初始化系统时钟：HSE 8MHz → PLL x9 = 72MHz */
+/* 初始化系统时钟：HSE 8MHz × PLL9 = 72MHz；HSE 起振失败自动回退 HSI 8MHz */
 void BSP_Clock_Init(void);
 
 #endif /* BSP_CLOCK_H */

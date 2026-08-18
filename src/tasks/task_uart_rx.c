@@ -38,7 +38,7 @@ static void UartRx_Handler(void const *argument)
     }
 }
 
-osThreadDef(UartRx_Handler, UartRx_Handler, osPriorityNormal, 1, 258);
+osThreadDef(UartRx_Handler, UartRx_Handler, osPriorityNormal, 1, 128);
 
 void Task_UART_RX_Create(task_params_t *params)
 {

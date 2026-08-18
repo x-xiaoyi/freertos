@@ -1,5 +1,6 @@
 {
-    "workbench.colorTheme": "Default Light Modern",
+    "workbench.colorTheme": "Deep Blue",
+    /* ===== 以下粉橙米黄定制已停用，取消这两处注释标记即可恢复 =====
     "editor.semanticHighlighting.enabled": false,
     "C_Cpp.enhancedColorization": "Disabled",
     "workbench.colorCustomizations": {
@@ -84,6 +85,7 @@
             }
         ]
     },
+    ===== */
     "stm32-for-vscode.openOCDPath": false,
     "stm32-for-vscode.armToolchainPath": false
 }
