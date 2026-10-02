@@ -4,3 +4,9 @@
 .vscode/launch.json
 .vscode/ipch
 *.code-workspace
+
+# 大型资料文件不入库（31MB 级 PDF 会导致仓库膨胀）
+*.pdf
+
+# 本地工具配置
+.opencode/
