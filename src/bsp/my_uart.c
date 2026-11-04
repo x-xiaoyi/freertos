@@ -57,7 +57,16 @@ void My_UART_Init(void)
     setvbuf(stdout, NULL, _IONBF, 0);
 }
 
-/* ---- ④ printf 重定向：所有 printf 字符最终流经 _write ---- */
+/* ---- ④ printf 重定向：所有 printf 字符最终流经 _write ----
+ *
+ * 注意：本文件是"手写 UART"练习实现，和 bsp_uart.c 功能重叠，
+ * 两者都会定义 _write。同一个工程里两个强符号会在链接期报
+ * "multiple definition of `_write'"，所以这里显式声明为 weak：
+ * 链接器优先选 bsp_uart.c 的强符号（工程实际在用的那份），
+ * 本文件的实现保留下来当作对照/备份，不再是链接冲突。
+ * 如果哪天只保留本文件，把 weak 去掉即可恢复"独占"。
+ */
+__attribute__((weak))
 int _write(int file, char *ptr, int len)
 {
     (void)file;
